@@ -1,0 +1,13 @@
+  {
+    "id":  "8840fdbf-5add-4fce-a94f-9ff3f47bdd0a", 
+    "name": "Client ID2",
+    "protocol": "openid-connect",
+    "protocolMapper": "oidc-usersessionmodel-note-mapper",
+    "config": {
+      "user.session.note": "clientId3",
+      "id.token.claim": "true",
+      "access.token.claim": "true",
+      "claim.name": "clientId2",
+      "jsonType.label": "String"
+    }
+  }

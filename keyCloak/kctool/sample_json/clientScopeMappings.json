@@ -1,0 +1,148 @@
+{
+  "id": "2abf0975-2d76-4074-ae10-ae8668d211ff",
+  "clientId": "account",
+  "name": "${client_account}",
+  "description": "Description2",
+  "rootUrl": "${authBaseUrl}",
+  "adminUrl": "Admin URL1",
+  "baseUrl": "/realms/demo/account1/",
+  "surrogateAuthRequired": false,
+  "enabled": true,
+  "clientAuthenticatorType": "client-secret",
+  "defaultRoles": [
+    "manage-account",
+    "view-profile"
+  ],
+  "redirectUris": [
+    "/realms/demo/account/*"
+  ],
+  "webOrigins": [
+    "Web Origins"
+  ],
+  "notBefore": 0,
+  "bearerOnly": false,
+  "consentRequired": true,
+  "standardFlowEnabled": true,
+  "implicitFlowEnabled": true,
+  "directAccessGrantsEnabled": true,
+  "serviceAccountsEnabled": true,
+  "authorizationServicesEnabled": true,
+  "publicClient": false,
+  "frontchannelLogout": false,
+  "protocol": "openid-connect",
+  "attributes": {
+    "saml.assertion.signature": "false",
+    "access.token.lifespan": "60",
+    "user.info.response.signature.alg": "HS384",
+    "id.token.encrypted.response.alg": "RSA-OAEP",
+    "saml.force.post.binding": "false",
+    "saml.multivalued.roles": "false",
+    "saml.encrypt": "false",
+    "login_theme": "keycloak",
+    "access.token.signed.response.alg": "ES256",
+    "saml.server.signature": "false",
+    "saml.server.signature.keyinfo.ext": "false",
+    "exclude.session.state.from.auth.response": "true",
+    "id.token.signed.response.alg": "ES384",
+    "consent.screen.text": "Client Consent Screen Text1",
+    "saml_force_name_id_format": "false",
+    "saml.client.signature": "false",
+    "tls.client.certificate.bound.access.tokens": "true",
+    "saml.authnstatement": "false",
+    "display.on.consent.screen": "true",
+    "id.token.encrypted.response.enc": "A128CBC-HS256",
+    "pkce.code.challenge.method": "plain",
+    "saml.onetimeuse.condition": "false"
+  },
+  "authenticationFlowBindingOverrides": {
+    "direct_grant": "87dd156d-602e-4654-9bba-a441c59d8aab",
+    "browser": "28060181-3c0d-4dc7-a1af-ee30e118fd87"
+  },
+  "fullScopeAllowed": false,
+  "nodeReRegistrationTimeout": 0,
+  "protocolMappers": [
+    {
+      "id": "d8cc7474-2ba6-4ff1-95b2-9600c014395e",
+      "name": "Client ID",
+      "protocol": "openid-connect",
+      "protocolMapper": "oidc-usersessionmodel-note-mapper",
+      "consentRequired": false,
+      "config": {
+        "user.session.note": "clientId",
+        "id.token.claim": "true",
+        "access.token.claim": "true",
+        "claim.name": "clientId",
+        "jsonType.label": "String"
+      }
+    },
+    {
+      "id": "8840fdbf-5add-4fce-a94f-9ff3f47bdd0a",
+      "name": "Client ID2",
+      "protocol": "openid-connect",
+      "protocolMapper": "oidc-usersessionmodel-note-mapper",
+      "consentRequired": false,
+      "config": {
+        "user.session.note": "clientId2",
+        "id.token.claim": "true",
+        "access.token.claim": "true",
+        "claim.name": "clientId2",
+        "jsonType.label": "String"
+      }
+    },
+    {
+      "id": "2dd52ebb-281c-4fe2-8cd2-88ba292cf4f4",
+      "name": "a",
+      "protocol": "openid-connect",
+      "protocolMapper": "oidc-usermodel-realm-role-mapper",
+      "consentRequired": false,
+      "config": {
+        "id.token.claim": "true",
+        "access.token.claim": "true",
+        "multivalued": "true",
+        "userinfo.token.claim": "true"
+      }
+    },
+    {
+      "id": "5ebaa40d-2e5a-4115-9233-c3497db30e0a",
+      "name": "Client Host",
+      "protocol": "openid-connect",
+      "protocolMapper": "oidc-usersessionmodel-note-mapper",
+      "consentRequired": false,
+      "config": {
+        "user.session.note": "clientHost",
+        "id.token.claim": "true",
+        "access.token.claim": "true",
+        "claim.name": "clientHost",
+        "jsonType.label": "String"
+      }
+    },
+    {
+      "id": "63356fc8-4a9c-4f85-8ff7-3d6b42ea3f2b",
+      "name": "Client IP Address",
+      "protocol": "openid-connect",
+      "protocolMapper": "oidc-usersessionmodel-note-mapper",
+      "consentRequired": false,
+      "config": {
+        "user.session.note": "clientAddress",
+        "id.token.claim": "true",
+        "access.token.claim": "true",
+        "claim.name": "clientAddress",
+        "jsonType.label": "String"
+      }
+    }
+  ],
+  "defaultClientScopes": [
+    "web-origins",
+    "role_list"
+  ],
+  "optionalClientScopes": [
+    "address",
+    "phone",
+    "microprofile-jwt"
+  ],
+  "access": {
+    "view": true,
+    "configure": true,
+    "manage": true
+  }
+}
