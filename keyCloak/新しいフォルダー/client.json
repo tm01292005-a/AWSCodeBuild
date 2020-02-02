@@ -1,0 +1,12 @@
+{
+    "enabled":true,
+    "attributes":{},
+    "redirectUris":[],
+    "clientId":"ddd",
+    "protocol":"openid-connect",
+    "implicitFlowEnabled": "true",
+    "authenticationFlowBindingOverrides":{
+      "browser": "28060181-3c0d-4dc7-a1af-ee30e118fd87",
+      "direct_grant":"cab73497-0f94-44ef-ace6-09abb9662d01"
+    }
+}

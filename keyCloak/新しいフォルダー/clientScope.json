@@ -1,0 +1,8 @@
+{
+  "attributes":{
+    "display.on.consent.screen":"true",
+    "include.in.token.scope":"true"
+  },
+  "name":"scope333",
+  "protocol":"openid-connect"
+}
