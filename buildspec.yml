@@ -6,13 +6,18 @@ phases:
       java: corretto8
   build:
     commands:
-      - echo Build started on `date`
-      - mvn test 
+      - cd ./my-app
+      - |
+        if [ -z "$BRANCH_NAME" ]; then
+          BRANCH_NAME=`git branch --contains | grep -v '(no branch)' | cut -b 3-`
+        fi
+      - echo $BRANCH_NAME
+      #- mvn test 
   post_build:
     commands:
       - echo Build completed on `date`
-      - mvn package
+      #- mvn package
 artifacts:
   files:
-    - target/my-app-1.0-SNAPSHOT.jar
+    - my-app/target/my-app-1.0-SNAPSHOT.jar
   discard-paths: yes
