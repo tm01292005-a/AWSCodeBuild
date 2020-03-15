@@ -1,0 +1,13 @@
+{
+  "name":"rsa-generated",
+  "providerId":"rsa-generated",
+  "providerType":"org.keycloak.keys.KeyProvider",
+  "parentId":"demo",
+  "config":{
+    "priority":["99"],
+    "enabled":["true"],
+    "active":["true"],
+    "algorithm":["RS256"],
+    "keySize":["2048"]
+  }
+}
