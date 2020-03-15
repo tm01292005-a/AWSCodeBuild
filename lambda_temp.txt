@@ -1,0 +1,303 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+   "MyTestBuild": {
+    "Type" : "AWS::CodeBuild::Project",
+    "Properties" : {
+        "Name" : "MyTestBuild",
+        "Artifacts": {
+          "Type": "S3",
+          "Location": "cf-templates-1xid8bysyfmuu-ap-northeast-1",
+          "Path": "",
+          "NamespaceType": "BUILD_ID",
+          "Name": "MyTestBuild",
+          "Packaging": "NONE",
+          "OverrideArtifactName": false,
+          "EncryptionDisabled": false
+        },
+        "BadgeEnabled" : false,
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "Description" : "test1",
+        "EncryptionKey" : "arn:aws:kms:ap-northeast-1:718101782941:alias/aws/s3",
+        "Environment": {
+          "Type": "LINUX_CONTAINER",
+          "Image": "aws/codebuild/amazonlinux2-x86_64-standard:2.0-19.11.26",
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "EnvironmentVariables": [
+            {
+              "Name": "AAA",
+              "Value": { "Ref" : "AAA" },
+              "Type": "PLAINTEXT"
+            },
+            {
+              "Name": "BBB",
+              "Value": { "Ref" : "BBB" },
+              "Type": "PLAINTEXT"
+            },
+            {
+              "Name": "FFF",
+              "Value": { "Ref" : "FFF" },
+              "Type": "PARAMETER_STORE"
+            },
+            {
+              "Name": "GGG",
+              "Value": "GGG",
+              "Type": "PLAINTEXT"
+            },
+            {
+              "Name": "HHH",
+              "Value": "HHH",
+              "Type": "PLAINTEXT"
+            }
+          ],
+          "PrivilegedMode": false,
+          "ImagePullCredentialsType": "CODEBUILD"
+        },
+        "LogsConfig": {
+          "CloudWatchLogs": {
+            "Status": "ENABLED"
+          },
+          "S3Logs": {
+            "Status": "DISABLED",
+            "EncryptionDisabled": false
+          }
+        },
+        "QueuedTimeoutInMinutes" : 480,
+        "ServiceRole" : "arn:aws:iam::718101782941:role/service-role/codebuild-MyTestBuild-service-role",
+        "Source": {
+          "Type": "CODECOMMIT",
+          "Location": "https://git-codecommit.ap-northeast-1.amazonaws.com/v1/repos/my-repository",
+          "GitCloneDepth": 1,
+          "GitSubmodulesConfig": {
+            "FetchSubmodules": false
+          },
+          "BuildSpec": "my-app/buildspec.yml"
+        },
+        "SourceVersion" : "refs/heads/master",
+        "Tags" : [],
+        "TimeoutInMinutes" : 60
+     }
+   },
+   "YouTestBuild": {
+    "Type" : "AWS::CodeBuild::Project",
+    "Properties" : {
+        "Name" : "YouTestBuild",
+        "Artifacts": {
+          "Type": "S3",
+          "Location": "cf-templates-1xid8bysyfmuu-ap-northeast-1",
+          "Path": "",
+          "NamespaceType": "BUILD_ID",
+          "Name": "YouTestBuild",
+          "Packaging": "NONE",
+          "OverrideArtifactName": false,
+          "EncryptionDisabled": false
+        },
+        "BadgeEnabled" : false,
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "Description" : "test2",
+        "EncryptionKey" : "arn:aws:kms:ap-northeast-1:718101782941:alias/aws/s3",
+        "Environment": {
+          "Type": "LINUX_CONTAINER",
+          "Image": "aws/codebuild/amazonlinux2-x86_64-standard:2.0-19.11.26",
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "EnvironmentVariables": [
+            {
+              "Name": "CCC",
+              "Value": { "Ref" : "CCC" },
+              "Type": "PLAINTEXT"
+            },
+            {
+              "Name": "DDD",
+              "Value": { "Ref" : "DDD" },
+              "Type": "PLAINTEXT"
+            },
+            {
+              "Name": "EEE",
+              "Value": { "Ref" : "EEE" },
+              "Type": "PARAMETER_STORE"
+            }
+          ],
+          "PrivilegedMode": false,
+          "ImagePullCredentialsType": "CODEBUILD"
+        },
+        "LogsConfig": {
+          "CloudWatchLogs": {
+            "Status": "ENABLED"
+          },
+          "S3Logs": {
+            "Status": "DISABLED",
+            "EncryptionDisabled": false
+          }
+        },
+        "QueuedTimeoutInMinutes" : 480,
+        "ServiceRole" : "arn:aws:iam::718101782941:role/service-role/codebuild-YouTestBuild-service-role",
+        "Source": {
+          "Type": "CODECOMMIT",
+          "Location": "https://git-codecommit.ap-northeast-1.amazonaws.com/v1/repos/my-repository",
+          "GitCloneDepth": 1,
+          "GitSubmodulesConfig": {
+            "FetchSubmodules": false
+          },
+          "BuildSpec": "my-app/buildspec.yml"
+        },
+        "SourceVersion" : "refs/heads/master",
+        "Tags" : [],
+        "TimeoutInMinutes" : 60
+     }
+   },
+   "MyTestPipeline": {
+    "Type": "AWS::CodePipeline::Pipeline",
+    "Properties": { 
+        "Name": "MyTestPipeline2",
+        "RoleArn": "arn:aws:iam::718101782941:role/service-role/AWSCodePipelineServiceRole-ap-northeast-1-MyTestPipeline",
+        "ArtifactStore": {
+            "Type": "S3",
+            "Location": "codepipeline-ap-northeast-1-506454505288"
+        },
+        "RestartExecutionOnUpdate": false,
+        "Stages": [
+            {
+                "Name": "Source",
+                "Actions": [
+                    {
+                        "Name": "Source",
+                        "ActionTypeId": {
+                            "Category": "Source",
+                            "Owner": "AWS",
+                            "Provider": "CodeCommit",
+                            "Version": "1"
+                        },
+                        "RunOrder": 1,
+                        "Configuration": {
+                            "BranchName": "develop",
+                            "PollForSourceChanges": "false",
+                            "RepositoryName": "my-repository"
+                        },
+                        "OutputArtifacts": [
+                            {
+                                "Name": { "Ref" : "SourceArtifacts" }
+                            }
+                        ],
+                        "InputArtifacts": [],
+                        "Region": "ap-northeast-1",
+                        "Namespace": "SourceVariables"
+                    }
+                ]
+            },
+            {
+                "Name": "Build",
+                "Actions": [
+                    {
+                        "Name": "Build1",
+                        "ActionTypeId": {
+                            "Category": "Build",
+                            "Owner": "AWS",
+                            "Provider": "CodeBuild",
+                            "Version": "1"
+                        },
+                        "RunOrder": 1,
+                        "Configuration": {
+                            "ProjectName": "MyTestBuild"
+                        },
+                        "OutputArtifacts": [
+                            {
+                                "Name": { "Ref" : "InstanceTypeParameter1" }
+                            }
+                        ],
+                        "InputArtifacts": [
+                            {
+                                "Name": { "Ref" : "SourceArtifacts" }
+                            }
+                        ],
+                        "Region": "ap-northeast-1",
+                        "Namespace": "BuildVariables1"
+                    },
+                    {
+                        "Name": "Build2",
+                        "ActionTypeId": {
+                            "Category": "Build",
+                            "Owner": "AWS",
+                            "Provider": "CodeBuild",
+                            "Version": "1"
+                        },
+                        "RunOrder": 2,
+                        "Configuration": {
+                            "ProjectName": "YouTestBuild"
+                        },
+                        "OutputArtifacts": [
+                            {
+                                "Name": { "Ref" : "InstanceTypeParameter2" }
+                            }
+                        ],
+                        "InputArtifacts": [
+                            {
+                                "Name": { "Ref" : "SourceArtifacts" }
+                            }
+                        ],
+                        "Region": "ap-northeast-1",
+                        "Namespace": "BuildVariables2"
+                    }
+                ]
+            }
+        ]
+    }
+  }
+  },
+  "Parameters" : {
+    "SourceArtifacts" : {
+      "Type" : "String",
+      "Default" : "SourceArtifacts",
+      "Description" : "Enter t2.micro, m1.small, or m1.large. Default is t2.micro."    
+    },
+    "InstanceTypeParameter1" : {
+      "Type" : "String",
+      "Default" : "ccc",
+      "AllowedValues" : ["aaa", "bbb", "ccc"],
+      "Description" : "InstanceTypeParameter1Enter t2.micro, m1.small, or m1.large. Default is t2.micro."    
+    },
+    "InstanceTypeParameter2" : {
+      "Type" : "String",
+      "Default" : "aaa",
+      "AllowedValues" : ["aaa", "bbb", "ccc"],
+      "Description" : "InstanceTypeParameter2Enter t2.micro, m1.small, or m1.large. Default is t2.micro."    
+    },
+    "AAA" : {
+      "Type" : "String",
+      "Default" : "aaa",
+      "AllowedValues" : ["aaa", "bbb", "ccc"],
+      "Description" : "AAAEnter t2.micro, m1.small, or m1.large. Default is t2.micro."    
+    },
+    "BBB" : {
+      "Type" : "String",
+      "Default" : "bbb",
+      "AllowedValues" : ["aaa", "bbb", "ccc"],
+      "Description" : "BBBEnter t2.micro, m1.small, or m1.large. Default is t2.micro."    
+    },
+    "CCC" : {
+      "Type" : "String",
+      "Default" : "ccc",
+      "AllowedValues" : ["aaa", "bbb", "ccc"],
+      "Description" : "CCCEnter t2.micro, m1.small, or m1.large. Default is t2.micro."    
+    },
+    "DDD" : {
+      "Type" : "String",
+      "Default" : "ddd",
+      "AllowedValues" : ["aaa", "bbb", "ccc", "ddd"],
+      "Description" : "DDDEnter t2.micro, m1.small, or m1.large. Default is t2.micro."    
+    },
+    "EEE" : {
+      "Type" : "String",
+      "Default" : "PARAMSTORE",
+      "Description" : "EEEEnter t2.micro, m1.small, or m1.large. Default is t2.micro."    
+    },
+    "FFF" : {
+      "Type" : "String",
+      "Default" : "PARAMSTORE",
+      "Description" : "FFFEnter t2.micro, m1.small, or m1.large. Default is t2.micro."    
+    }
+  }
+}
