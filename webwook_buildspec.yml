@@ -1,0 +1,14 @@
+version: 0.2
+phases:
+  build:
+    commands:
+      - WEBHOOK="https://hooks.slack.com/services/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"
+      - AUTHOR_NAME="Scenario Test Success."
+      - COLOR=2FA44F # #2FA44F(good), #D50200(danger)
+      - TITLE="CodeBuild link"
+      - TITLE_LINK=https://api.slack.com/
+      - TEXT="Scenario test was succeeded.\nStart time :2020/03/28 03:00:00\n Branch name :develop\nCommit hash :1233455ssasd123456789"
+      - |
+        curl -s -S -X POST --data-urlencode \
+            "payload={\"attachments\":[{\"author_name\":\"${AUTHOR_NAME}\",\"color\":\"${COLOR}\",\"title\":\"${TITLE}\",\"title_link\":\"${TITLE_LINK}\",\"text\":\"${TEXT}\",}]}" \
+            ${WEBHOOK}
